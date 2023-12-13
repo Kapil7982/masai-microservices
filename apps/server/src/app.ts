@@ -100,12 +100,13 @@ class App {
 				}),
 			);
 		}
-		this.app.use(
-			cors({
-				origin: origins,
-				credentials: true,
-			}),
-		);
+		origins.push('https://masai-short-url.netlify.app');
+		this.app.use(cors({
+			origin: origins,
+			methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+			credentials: true, // Enable credentials (cookies, authorization headers) cross-origin
+		  }));
+		
 	}
 }
 

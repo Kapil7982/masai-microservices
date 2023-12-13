@@ -100,7 +100,7 @@ class App {
 				}),
 			);
 		}
-		//origins.push('https://masai-short-url.netlify.app');
+		origins.push('https://masai-short-url.netlify.app');
 		this.app.use(cors({
 			origin: origins,
 			methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',

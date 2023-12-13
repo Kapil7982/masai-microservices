@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "npx jest",
-		"dev": "cross-env NODE_ENV=development nodemon",
+		"dev": "cross-env NODE_ENV=production nodemon",
 		"build": "swc src -d dist --source-maps --copy-files",
 		"lint": "prettier --check src/**/*.ts && eslint --ext .ts src",
 		"lint:fix": "prettier --write src/**/*.ts && eslint --ext .ts src --fix",

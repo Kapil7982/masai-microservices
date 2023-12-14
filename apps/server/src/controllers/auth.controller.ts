@@ -88,12 +88,17 @@ export class AuthController {
 			client_id: process.env.CLIENT_ID,
 			redirect_uri: process.env.REDIRECT_URL,
 		});
+		console.log("CLIENT_ID", process.env.CLINENT_ID)
+		console.log("redirect uri", process.env.REDIRECT_URL)
         console.log("ABCD")
 		// Open the browser for authentication
-		OpenBrowserUtil.open(authUrl);
+		//OpenBrowserUtil.open(authUrl);
 
+		console.log("authurl", authUrl)
 		// Redirect to the authentication URL
 		res.redirect(authUrl);
+
+		
 	}
 
 	public login = async (req: Request, res: Response, next: NextFunction) => {

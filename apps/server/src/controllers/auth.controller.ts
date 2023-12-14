@@ -30,7 +30,7 @@ export class AuthController {
 	private static oAuth2Client = new google.auth.OAuth2(
 		process.env.CLIENT_ID || "",
 		process.env.CLIENT_SECRET || "",
-		process.env.REDIRECT_URI || ""
+		process.env.REDIRECT_URL || ""
 	);
 
 	// Create an OAuth2 instance for Google OAuth2 API

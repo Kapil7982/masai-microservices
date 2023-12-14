@@ -67,7 +67,8 @@ export class AuthController {
 			AuthController.tokenn = tokens;
 
 			// Redirect to the main page or any other route
-			res.redirect("http://localhost:3000/");
+			//res.redirect("http://localhost:3000/");
+			res.send("Login")
 		} catch (error) {
 			console.error("Error exchanging code for tokens:", error);
 			res.status(500).send("Internal Server Error");
@@ -87,7 +88,7 @@ export class AuthController {
 			client_id: process.env.CLIENT_ID,
 			redirect_uri: process.env.REDIRECT_URL,
 		});
-
+        console.log("ABCD")
 		// Open the browser for authentication
 		OpenBrowserUtil.open(authUrl);
 

@@ -100,7 +100,7 @@ class App {
 				}),
 			);
 		}
-		origins.push('https://masai-short-url.netlify.app', 'https://otp-phi.vercel.app');
+		origins.push('https://masai-short-url.netlify.app', 'https://otp-phi.vercel.app', 'https://masai-blocking-calendar.netlify.app');
 		this.app.use(cors({
 			origin: origins,
 			methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',

@@ -88,7 +88,7 @@ export class AuthController {
 			client_id: process.env.CLIENT_ID,
 			redirect_uri: process.env.REDIRECT_URL,
 		});
-		console.log("CLIENT_ID", process.env.CLINENT_ID)
+		console.log("CLIENT_ID", process.env.CLIENT_ID)
 		console.log("redirect uri", process.env.REDIRECT_URL)
         console.log("ABCD")
 		// Open the browser for authentication

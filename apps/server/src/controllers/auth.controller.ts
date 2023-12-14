@@ -93,7 +93,7 @@ export class AuthController {
 		// Open the browser for authentication
 		//OpenBrowserUtil.open(authUrl);
 		// Redirect to the authentication URL
-		console.log("function call", this.authenticateUser)
+		console.log("function call")
 		res.redirect(authUrl);
 
 		

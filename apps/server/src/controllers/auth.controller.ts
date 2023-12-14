@@ -41,9 +41,9 @@ export class AuthController {
 
 	// Handle the callback after Google has authorized the user
 	public static async handleOAuthCallback(req: Request, res: Response) {
+		console.log("handleOAuthCallback")
 		// Extract authorization code from the URL
 		const { code: urlCode } = req.query;
-		console.log(urlCode);
 
 		try {
 			// Check if authorization code is present in the URL
@@ -88,14 +88,12 @@ export class AuthController {
 			client_id: process.env.CLIENT_ID,
 			redirect_uri: process.env.REDIRECT_URL,
 		});
-		console.log("CLIENT_ID", process.env.CLIENT_ID)
-		console.log("redirect uri", process.env.REDIRECT_URL)
-        console.log("ABCD")
+	
+        
 		// Open the browser for authentication
 		//OpenBrowserUtil.open(authUrl);
-
-		console.log("authurl", authUrl)
 		// Redirect to the authentication URL
+		console.log("function call", this.authenticateUser)
 		res.redirect(authUrl);
 
 		

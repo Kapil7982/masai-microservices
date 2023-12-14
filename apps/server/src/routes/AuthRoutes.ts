@@ -27,7 +27,7 @@ class AuthRoutes implements Routes {
 
 		// Route to handle the OAuth callback after user authorization
 		this.router.get(
-			`${this.path}/google/redirect`,
+			`${this.path}google/redirect`,
 			AuthController.handleOAuthCallback,
 		);
 	}

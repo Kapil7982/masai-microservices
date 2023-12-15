@@ -5,18 +5,21 @@ import Free2SMSService from "./free2sms.service";
 
 class ServiceProviderManager {
   private static providers: ServiceProvider[] = [
+
+    {
+      name: "Twilio",
+      instance: new TwilioService(),
+    },
+    {
+           name: "2FACTOR",
+           instance: new TwoFactorService(),
+    },
     // {
     //     name: "Free2SMS",
     //     instance: new Free2SMSService(),
     //   },
-    //   {
-    //     name: "2FACTOR",
-    //     instance: new TwoFactorService(),
-    //   },
-      {
-        name: "Twilio",
-        instance: new TwilioService(),
-      },
+    //   
+      
     
    
     

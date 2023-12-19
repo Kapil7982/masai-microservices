@@ -66,7 +66,7 @@ export class AuthController {
 			AuthController.tempToken=tokens
 			
 			// Redirect to the main page or any other route
-			res.redirect("http://localhost:3000/");
+			res.redirect("https://masai-blocking-calendar.netlify.app");
 		} catch (error) {
 			console.error("Error exchanging code for tokens:", error);
 			res.status(500).send("Internal Server Error");

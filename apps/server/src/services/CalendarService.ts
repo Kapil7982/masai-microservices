@@ -80,8 +80,7 @@ export class CalendarService {
 			process.env.CLIENT_SECRET,
 			process.env.REDIRECT_URL
 		);
-		console.log("My tocken", token)
-		console.log("google ===== tocken", AuthController.tempToken)
+	
 
 		// Set OAuth2Client credentials using the tokens from the authenticated user
 		oAuth2Client.setCredentials(token);
@@ -134,8 +133,6 @@ export class CalendarService {
 				eventDetails.push(eventObject);
 			});
 
-			// Log the processed event details and return them
-			console.log(eventDetails);
 			return eventDetails;
 		} catch (error: any) {
 			// Log and throw any errors that occur during the process
@@ -210,8 +207,6 @@ export class CalendarService {
 			},
 		});
 
-		// Log the updated event data and return it
-		console.log(response.data);
 		return response.data;
 	}
 

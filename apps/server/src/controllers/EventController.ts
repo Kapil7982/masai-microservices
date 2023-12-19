@@ -85,7 +85,7 @@ export class EventController {
 
 			// Retrieve updated event data from the request body
 			const updatedEventData:eventData = req.body;
-			console.log(updatedEventData);
+			
 
 			// Ensure the user is authenticated
 			const tokens = req.session.tokens;

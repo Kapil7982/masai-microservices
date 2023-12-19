@@ -76,9 +76,15 @@ export class AuthController {
 	public static getTempToken(req: Request, res: Response) {
 
 		res.status(200).send(AuthController.tempToken);
-		AuthController.tempToken=undefined;
+		AuthController.tempToken=null;
 	
 	}
+
+	public static setTempToken(req: Request, res: Response) {
+		AuthController.tempToken=undefined;
+		res.status(200)
+	}
+
 
 	// Initiate the authentication process by redirecting to Google OAuth2 URL
 	public static authenticateUser(req: Request, res: Response) {

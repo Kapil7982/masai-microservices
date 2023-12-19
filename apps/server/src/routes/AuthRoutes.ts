@@ -35,6 +35,10 @@ class AuthRoutes implements Routes {
 			`${this.path}getTempToken`,
 			AuthController.getTempToken,
 		);
+		this.router.get(
+			`${this.path}setTempToken`,
+			AuthController.setTempToken,
+		);
 	}
 }
 

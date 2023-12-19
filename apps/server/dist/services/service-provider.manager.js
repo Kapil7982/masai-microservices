@@ -9,6 +9,7 @@ Object.defineProperty(exports, "default", {
     }
 });
 const _twilioservice = _interop_require_default(require("./twilio.service"));
+const _2factorservice = _interop_require_default(require("./2factor.service"));
 function _define_property(obj, key, value) {
     if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -40,6 +41,10 @@ _define_property(ServiceProviderManager, "providers", [
     {
         name: "Twilio",
         instance: new _twilioservice.default()
+    },
+    {
+        name: "2FACTOR",
+        instance: new _2factorservice.default()
     }
 ]);
 _define_property(ServiceProviderManager, "currentProviderIndex", 0);

@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { UrlCardProps } from "../types/Types";
 import CopyToClipboard from "react-copy-to-clipboard";
-const server = import.meta.env.VITE_SERVER;
+// const server = import.meta.env.VITE_SERVER;
 export const UrlCard: React.FC<UrlCardProps> = ({
 	item,
 	openEditModal,

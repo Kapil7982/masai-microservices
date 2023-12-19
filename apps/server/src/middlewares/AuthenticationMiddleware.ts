@@ -11,11 +11,13 @@ export class AuthenticationMiddleware {
 		res: Response,
 		next: NextFunction
 	) {
-		// Check if tokens are present in the session
-		if (!AuthController.tokenn) {
-			// If tokens are not present, return an unauthorized status
-			return res.status(401).json({ message: "Unauthorized" });
+		// Check if tokens are present in the local storage
+		if (req.headers['access_token']=="" && req.headers['refresh_token']==""||
+		req.headers['access_token']==undefined && req.headers['refresh_token']==undefined ) {
+			// If token is dameged, return an unauthorized status	
+			return res.status(401).json({ message: "Unauthorized"});
 		}
+		
 
 		// If tokens are present, continue to the next middleware or route handler
 		next();

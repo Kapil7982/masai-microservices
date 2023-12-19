@@ -24,13 +24,12 @@ declare module "express-session" {
 export class AuthController {
 	// Static properties for user email and tokens
 	public static userEmail: string;
-	public static tokenn: token;
 
 	// Create an OAuth2Client using Google API credentials
 	private static oAuth2Client = new google.auth.OAuth2(
 		process.env.CLIENT_ID || "",
 		process.env.CLIENT_SECRET || "",
-		process.env.REDIRECT_URL || ""
+		process.env.REDIRECT_URI || ""
 	);
 
 	// Create an OAuth2 instance for Google OAuth2 API
@@ -39,23 +38,23 @@ export class AuthController {
 		version: "v2",
 	});
 
+	public static tempToken: token;
+
 	// Handle the callback after Google has authorized the user
 	public static async handleOAuthCallback(req: Request, res: Response) {
-		console.log("handleOAuthCallback")
 		// Extract authorization code from the URL
 		const { code: urlCode } = req.query;
-
 		try {
 			// Check if authorization code is present in the URL
 			if (!urlCode) throw new Error("Authorization code not found in the URL.");
 
 			// Extract authorization code from the query parameters
 			const code: string = req.query.code as string;
-			console.log("Authorization code", code);
+			// console.log("Authorization code", code);
 
 			// Exchange authorization code for tokens
 			const { tokens }: any = await AuthController.oAuth2Client.getToken(code);
-			console.log("Token", tokens);
+			// console.log("Token", tokens);
 
 			// Set OAuth2Client credentials and get user information
 			AuthController.oAuth2Client.setCredentials(tokens);
@@ -64,14 +63,20 @@ export class AuthController {
 
 			// Store tokens in the session for future use
 			req.session.tokens = tokens;
-			AuthController.tokenn = tokens;
-
+			AuthController.tempToken=tokens
+			
 			// Redirect to the main page or any other route
-			res.redirect("https://masai-blocking-calendar.netlify.app/");
+			res.redirect("http://localhost:3000/");
 		} catch (error) {
 			console.error("Error exchanging code for tokens:", error);
 			res.status(500).send("Internal Server Error");
 		}
+	}
+
+	public static getTempToken(req: Request, res: Response) {
+
+		res.status(200).send(AuthController.tempToken);
+	
 	}
 
 	// Initiate the authentication process by redirecting to Google OAuth2 URL
@@ -87,14 +92,12 @@ export class AuthController {
 			client_id: process.env.CLIENT_ID,
 			redirect_uri: process.env.REDIRECT_URL,
 		});
-	
-        
+
 		// Open the browser for authentication
-		//OpenBrowserUtil.open(authUrl);
+		OpenBrowserUtil.open(authUrl);
+
 		// Redirect to the authentication URL
 		res.redirect(authUrl);
-
-		
 	}
 
 	public login = async (req: Request, res: Response, next: NextFunction) => {
@@ -139,4 +142,3 @@ export class AuthController {
 }
 
 export default AuthController;
-

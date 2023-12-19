@@ -30,6 +30,11 @@ class AuthRoutes implements Routes {
 			`${this.path}google/redirect`,
 			AuthController.handleOAuthCallback,
 		);
+
+		this.router.get(
+			`${this.path}getTempToken`,
+			AuthController.getTempToken,
+		);
 	}
 }
 

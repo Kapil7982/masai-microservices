@@ -18,7 +18,6 @@ import {
 	Box,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../services/axiosInstance";
 

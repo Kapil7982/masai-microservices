@@ -17,7 +17,6 @@ _export(exports, {
     }
 });
 const _googleapis = require("googleapis");
-const _OpenBrowserUtil = _interop_require_default(require("../utils/OpenBrowserUtil"));
 const _dotenv = _interop_require_default(require("dotenv"));
 const _passport = _interop_require_default(require("passport"));
 require("../configs/passport");
@@ -43,8 +42,8 @@ function _interop_require_default(obj) {
 _dotenv.default.config();
 let AuthController = class AuthController {
     static async handleOAuthCallback(req, res) {
+        console.log("handleOAuthCallback");
         const { code: urlCode } = req.query;
-        console.log(urlCode);
         try {
             if (!urlCode) throw new Error("Authorization code not found in the URL.");
             const code = req.query.code;
@@ -56,7 +55,7 @@ let AuthController = class AuthController {
             AuthController.userEmail = userInfoResponse.data.email || "";
             req.session.tokens = tokens;
             AuthController.tokenn = tokens;
-            res.redirect("http://localhost:3000/");
+            res.redirect("https://masai-blocking-calendar.netlify.app/");
         } catch (error) {
             console.error("Error exchanging code for tokens:", error);
             res.status(500).send("Internal Server Error");
@@ -72,7 +71,6 @@ let AuthController = class AuthController {
             client_id: process.env.CLIENT_ID,
             redirect_uri: process.env.REDIRECT_URL
         });
-        _OpenBrowserUtil.default.open(authUrl);
         res.redirect(authUrl);
     }
     constructor(){
@@ -114,7 +112,7 @@ let AuthController = class AuthController {
 };
 _define_property(AuthController, "userEmail", void 0);
 _define_property(AuthController, "tokenn", void 0);
-_define_property(AuthController, "oAuth2Client", new _googleapis.google.auth.OAuth2(process.env.CLIENT_ID || "", process.env.CLIENT_SECRET || "", process.env.REDIRECT_URI || ""));
+_define_property(AuthController, "oAuth2Client", new _googleapis.google.auth.OAuth2(process.env.CLIENT_ID || "", process.env.CLIENT_SECRET || "", process.env.REDIRECT_URL || ""));
 _define_property(AuthController, "oauth2", _googleapis.google.oauth2({
     auth: AuthController.oAuth2Client,
     version: "v2"

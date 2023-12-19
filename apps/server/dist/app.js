@@ -106,8 +106,10 @@ let App = class App {
                 return corsOrigin.trim();
             }));
         }
+        origins.push('https://masai-short-url.netlify.app', 'https://otp-phi.vercel.app', 'https://masai-blocking-calendar.netlify.app');
         this.app.use((0, _cors.default)({
             origin: origins,
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true
         }));
     }

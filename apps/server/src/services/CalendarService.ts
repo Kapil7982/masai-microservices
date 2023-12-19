@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import  {eventData}  from "@interfaces/eventData";
 import { Myattendees } from "@interfaces/attendees";
 import { AuthController  } from "../controllers/auth.controller";
+import { token } from "@interfaces/token";
 
 // Class definition for CalendarService
 export class CalendarService {
@@ -14,16 +15,15 @@ export class CalendarService {
 	});
 
 	// Method to insert a new event into the user's calendar
-	public static async insertEvent(eventData: eventData) {
+	public static async insertEvent(eventData: eventData,token :token) {
 		// Create an OAuth2Client instance for handling Google OAuth2
 		const oAuth2Client = new google.auth.OAuth2(
 			process.env.CLIENT_ID,
 			process.env.CLIENT_SECRET,
 			process.env.REDIRECT_URL
 		);
-
 		// Set OAuth2Client credentials using the tokens from the authenticated user
-		oAuth2Client.setCredentials(AuthController.tokenn);
+		oAuth2Client.setCredentials(token);
 
 		// Convert event start and end times to ISO format
 		const startDateTime = dayjs(eventData.startDateTime).toISOString();
@@ -38,7 +38,7 @@ export class CalendarService {
 			// Check if the location matches the link pattern
 			return linkRegex.test(location);
 		  };
-		  
+	
 		  const response = await CalendarService.calendar.events.insert({
 			calendarId: "primary",
 			auth: oAuth2Client,
@@ -73,16 +73,18 @@ export class CalendarService {
 	}
 
 	// Method to list upcoming events for the authenticated user
-	public static async listEvents(userEmail: String) {
+	public static async listEvents(userEmail: String, token :token) {
 		// Create an OAuth2Client instance for handling Google OAuth2
 		const oAuth2Client = new google.auth.OAuth2(
 			process.env.CLIENT_ID,
 			process.env.CLIENT_SECRET,
 			process.env.REDIRECT_URL
 		);
+		console.log("My tocken", token)
+		console.log("google ===== tocken", AuthController.tempToken)
 
 		// Set OAuth2Client credentials using the tokens from the authenticated user
-		oAuth2Client.setCredentials(AuthController.tokenn);
+		oAuth2Client.setCredentials(token);
 
 		try {
 			// Retrieve upcoming events from the user's calendar
@@ -134,7 +136,6 @@ export class CalendarService {
 
 			// Log the processed event details and return them
 			console.log(eventDetails);
-			console.log("End of the function");
 			return eventDetails;
 		} catch (error: any) {
 			// Log and throw any errors that occur during the process
@@ -144,7 +145,16 @@ export class CalendarService {
 	}
 
 	// Method to update an existing event in the user's calendar
-	public static async updateEvent(eventId, updatedEvent: eventData) {
+	public static async updateEvent(eventId, updatedEvent: eventData,token :token) {
+		const isLink = (location) => {
+			// Define a regex pattern for detecting links (URLs)
+			const linkRegex = /^(http|https):\/\/[^ "]+$/;
+		  
+			// Check if the location matches the link pattern
+			return linkRegex.test(location);
+		  };
+
+		  
 		// Create an OAuth2Client instance for handling Google OAuth2
 		const oAuth2Client = new google.auth.OAuth2(
 			process.env.CLIENT_ID,
@@ -152,12 +162,13 @@ export class CalendarService {
 			process.env.REDIRECT_URL
 		);
 
+
 		// Convert updated event start and end times to ISO format
 		const startDateTime = dayjs(updatedEvent.startDateTime).toISOString();
 		const endDateTime = dayjs(updatedEvent.endDateTime).toISOString();
 
 		// Set OAuth2Client credentials using the tokens from the authenticated user
-		oAuth2Client.setCredentials(AuthController.tokenn);
+		oAuth2Client.setCredentials(token);
 
 		// Update the specified event in the user's calendar
 		const response = await CalendarService.calendar.events.update({
@@ -178,12 +189,24 @@ export class CalendarService {
 					dateTime: endDateTime,
 					timeZone: "Asia/Kolkata",
 				},
-				conferenceData: {
-					createRequest: {
-						requestId: uuid(),
-					},
-				},
+
+				
+				// conferenceData: {
+				// 	createRequest: {
+				// 		requestId: uuid(),
+				// 	},
+				// },
+
+
 				attendees: updatedEvent.attendees,
+				...(isLink(updatedEvent.location)
+				? {
+					location: updatedEvent.location, // Remove the location field if it's a link
+				  }
+				: {
+					location: updatedEvent.location,
+					conferenceData: { createRequest: { requestId: uuid() } },
+				  }),
 			},
 		});
 
@@ -193,7 +216,7 @@ export class CalendarService {
 	}
 
 	// Method to delete an existing event from the user's calendar
-	public static async deleteEvent(eventId) {
+	public static async deleteEvent(eventId,token :token) {
 		// Create an OAuth2Client instance for handling Google OAuth2
 		const oAuth2Client = new google.auth.OAuth2(
 			process.env.CLIENT_ID,
@@ -201,8 +224,9 @@ export class CalendarService {
 			process.env.REDIRECT_URL
 		);
 
+		
 		// Set OAuth2Client credentials using the tokens from the authenticated user
-		oAuth2Client.setCredentials(AuthController.tokenn);
+		oAuth2Client.setCredentials(token);
 
 		// Retrieve the details of the event before deleting it
 		const response1 = await CalendarService.calendar.events.get({

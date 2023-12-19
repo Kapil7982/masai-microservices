@@ -31,7 +31,7 @@ class EventRoutes implements Routes {
 
 		// Route to list events for a specific user
 		this.router.get(
-			`${this.path}/list-events/:email`,
+			`${this.path}/list-events`,
 			AuthenticationMiddleware.isAuthenticated, // Middleware to ensure user is authenticated
 			EventController.listEvent,
 		);

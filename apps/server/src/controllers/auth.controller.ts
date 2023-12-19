@@ -76,6 +76,7 @@ export class AuthController {
 	public static getTempToken(req: Request, res: Response) {
 
 		res.status(200).send(AuthController.tempToken);
+		AuthController.tempToken=undefined;
 	
 	}
 

@@ -74,6 +74,7 @@ export class AuthController {
 	}
 
 	public static getTempToken(req: Request, res: Response) {
+		console.log("two =>", AuthController.tempToken)
 
 		res.status(200).send(AuthController.tempToken);
 		AuthController.tempToken={
@@ -84,10 +85,12 @@ export class AuthController {
 				"scope" : ``,
 				"token_type" : ``
 		};
+		console.log("two =>", AuthController.tempToken)
 	
 	}
 
 	public static setTempToken(req: Request, res: Response) {
+		
 		AuthController.tempToken={
 			"access_token" : ``,
 				"expiry_date" : +``,
@@ -96,8 +99,10 @@ export class AuthController {
 				"scope" : ``,
 				"token_type" : ``
 		};
+		console.log("three =>", AuthController.tempToken)
 		res.status(200)
 	}
+
 
 
 	// Initiate the authentication process by redirecting to Google OAuth2 URL

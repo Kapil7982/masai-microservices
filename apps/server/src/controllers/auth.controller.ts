@@ -76,12 +76,26 @@ export class AuthController {
 	public static getTempToken(req: Request, res: Response) {
 
 		res.status(200).send(AuthController.tempToken);
-		AuthController.tempToken=null;
+		AuthController.tempToken={
+			"access_token" : ``,
+				"expiry_date" : +``,
+				"id_token" : ``,
+				"refresh_token" : ``,
+				"scope" : ``,
+				"token_type" : ``
+		};
 	
 	}
 
 	public static setTempToken(req: Request, res: Response) {
-		AuthController.tempToken=undefined;
+		AuthController.tempToken={
+			"access_token" : ``,
+				"expiry_date" : +``,
+				"id_token" : ``,
+				"refresh_token" : ``,
+				"scope" : ``,
+				"token_type" : ``
+		};
 		res.status(200)
 	}
 

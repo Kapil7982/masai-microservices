@@ -31,14 +31,6 @@ class AuthRoutes implements Routes {
 			AuthController.handleOAuthCallback,
 		);
 
-		this.router.get(
-			`${this.path}getTempToken`,
-			AuthController.getTempToken,
-		);
-		this.router.get(
-			`${this.path}setTempToken`,
-			AuthController.setTempToken,
-		);
 	}
 }
 

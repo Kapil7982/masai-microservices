@@ -1,155 +1,69 @@
-# OTP Service - Web and Server
+# URL Shortener App
 
-This project encompasses both the frontend (web) and backend (server) components of an OTP (One-Time Password) service. The web part is implemented using Turbo + Chkra-Ui, and the server part is built with Node.js, Express, typescript, twilio and MongoDB.
+Welcome to the URL Shortener App! This application allows users to generate shortened URLs, manage their creations, and view details for each URL. Additionally, the app provides the functionality to update expiration dates, titles, and descriptions for enhanced customization. QR codes are automatically generated for each URL to facilitate easy sharing.
 
-## Table of Contents
+## Getting Started
 
-- [Web Installation](#web-installation)
-- [Server Installation](#server-installation)
-- [Usage](#usage)
-- [Web Directory Structure](#web-directory-structure)
-- [Server Directory Structure](#server-directory-structure)
-- [Components](#components)
-- [Contributing](#contributing)
-- [License](#license)
+### Prerequisites
+- Node.js installed
+- MongoDB database
 
-## Web Installation
+## Installation
 
-1. Navigate to the web directory:
+1. Clone the repository:
 
-   ```bash
-   cd otp-service-frontend
-   ```
+    ```bash
+    git clone https://github.com/nolan-projects/modular-services.git
+    ```
 
 2. Install dependencies:
 
-   ```bash
-   pnpm install
-   ```
+    ```bash
+    cd apps
+    cd shorturl
+    ```
 
-3. Create a `.env` file in the root directory and add the following environment variable:
+3. Set up the MongoDB database:
 
-   ```env
-   REACT_APP_API_URL=http://localhost:3000
-   ```
+    - Create a MongoDB database and obtain the connection string.
+    - Create .env file to provide the necessary environment variables
 
-   Replace the `http://localhost:3000` with the URL of your backend API.
+4. Start the application:
 
-4. Start the development server:
+    ```bash
+    pnpm install
+    pnpm dev
+    ```
 
-   ```bash
-   pnpm start
-   ```
-
-   The React app should be running at [http://localhost:3000](http://localhost:3000).
-
-## Server Installation
-
-1. Navigate to the server directory:
-
-   ```bash
-   cd otp-service
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   pnpm install
-   ```
-
-3. Create a `.env` file in the root directory and add the following environment variables:
-
-   ```env
-   PORT=3000
-   MONGO_URL=mongodb://your_mongodb_url
-   TWILIO_ACCOUNT_SID=your_twilio_account_sid
-   TWILIO_AUTH_TOKEN=your_twilio_auth_token
-   TWILIO_MOBILE=your_twilio_phone_number
-   ```
-
-   Replace the values with your specific configuration.
-
-4. Start the server:
-
-   ```bash
-   pnpm run dev
-   ```
-
-   The server should be running at [http://localhost:3000](http://localhost:3000).
+5. Open your browser and navigate to [http://localhost:3001](http://localhost:3001) to use the URL Shortener App.
 
 ## Usage
 
-### Web
+1. **Shorten a URL:**
+   - Input a long URL into the app.
+   - Input Title, Description, Expiration Date as needed (Optional)
+   - Click the "Generate" button.
+   - Copy or visit the generated shortened URL.
 
-#### Login Page
+2. **View Short URLs:**
+   - Navigate to the "All URLs" section.
+   - Browse the list of shortened URLs.
+   - Update the expiration date, title, or description as needed.
 
-The login page allows users to enter their mobile number to receive an OTP.
+3. **URL Details:**
+   - Click on the "details" button of a specific short URL to view its details, including the expiration date, title, and description.
 
-1. Enter your mobile number in the input field.
-2. Click on the "Login" button.
-3. Wait for the OTP to be sent.
+4. **QR Code Generation:**
+   - Each shortened URL has a corresponding QR code.
+   - Use the QR code for convenient sharing.
 
-#### Verify Page
+# Acknowledgements
 
-The verify page prompts users to enter the OTP received on their mobile number.
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [QR Code Generator](https://www.npmjs.com/package/qrcode) npm package
 
-1. Enter the received OTP in the input field.
-2. Click on the "Verify" button.
-3. If the OTP is valid, the verification will succeed.
+Happy URL shortening!
 
-### Server
 
-- **Generate OTP:**
-
-  ```http
-  POST /api/otp/generate
-  ```
-
-  Generate a new OTP. Requires a JSON body with the `identifier` (phone number).
-
-- **Verify OTP:**
-
-  ```http
-  POST /api/otp/verify
-  ```
-
-  Verify the entered OTP. Requires a JSON body with `identifier` and `userEnteredOTP`.
-
-- **Cleanup Database:**
-
-  The database cleanup runs automatically every day at 12:00 am to remove expired OTP records.
-
-## Web Directory Structure
-
-The project is organized with the following structure:
-
-- **components:** Contains React components for login and OTP verification.
-- **styles:** Includes CSS files for styling the components.
-- **utils:** Contains utility functions used across components.
-- **index.js:** Entry point for the React app.
-
-## Server Directory Structure
-
-- **controllers:** Contains the main logic for generating and verifying OTPs.
-- **middlewares:** Includes rate-limiting middleware.
-- **models:** Defines the Mongoose schema for OTPs.
-- **routes:** Defines the Express routes.
-- **utils:** Contains utility functions, including the database cleanup script.
-
-## Components
-
-### Login Component
-
-The `Login` component handles user input for mobile number and initiates the OTP generation process.
-
-### Verify Component
-
-The `Verify` component handles OTP verification and provides options for resending the OTP.
-
-## Contributing
-
-Feel free to contribute to this project by opening issues or submitting pull requests.
-
-## License
-
-This project is licensed under the [Nolan Edutech Pvt. Ltd.](LICENSE).
